@@ -1,0 +1,16 @@
+### Список мест
+GET {{host}}/api/v1/places
+Accept: application/json
+
+### Одно конкретное место
+GET {{host}}/api/v1/places/1
+
+### Создать место
+POST {{host}}/api/v1/places
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "lat": 56.83,
+  "lng": 60.6
+}
