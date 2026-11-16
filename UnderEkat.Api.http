@@ -1,6 +1,25 @@
-@UnderEkat.Api_HostAddress = http://localhost:5245
+@host = http://localhost:5245
 
-GET {{UnderEkat.Api_HostAddress}}/weatherforecast/
+### Все места
+GET {{host}}/api/v1/places
 Accept: application/json
 
-###
+### Поиск по названию без учёта регистра
+GET {{host}}/api/v1/places?search=first
+Accept: application/json
+
+### Первое место
+GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000001
+Accept: application/json
+
+### Второе место
+GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000002
+Accept: application/json
+
+### Несуществующее место — 404
+GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000003
+Accept: application/json
+
+### Некорректный идентификатор — 400
+GET {{host}}/api/v1/places/hello
+Accept: application/json
