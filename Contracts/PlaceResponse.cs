@@ -1,5 +1,8 @@
 namespace UnderEkat.Api.Contracts;
 
+/// <summary>
+/// Данные места в ответе API
+/// </summary>
 public class PlaceResponse
 {
     public Guid Id { get; set; }
