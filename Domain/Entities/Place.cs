@@ -22,7 +22,7 @@ public class Place
     public Place(Guid id, Guid authorId, string name, string description, Coordinates location)
     {
         if (id == Guid.Empty)
-            throw new ArgumentException("Не указан идентификатор места", nameof(id));
+            throw new ArgumentException("Не указан id места", nameof(id));
 
         if (authorId == Guid.Empty)
             throw new ArgumentException("Не указан автор места", nameof(authorId));
