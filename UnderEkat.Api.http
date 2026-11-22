@@ -4,6 +4,26 @@
 GET {{host}}/api/v1/places
 Accept: application/json
 
+### Публичные подборки
+GET {{host}}/api/v1/collections
+Accept: application/json
+
+### Подборка с живым местом и заглушкой удаленного
+GET {{host}}/api/v1/collections/cc000000-0000-4000-8000-000000000001
+Accept: application/json
+
+### Приватная подборка - 404
+GET {{host}}/api/v1/collections/cc000000-0000-4000-8000-000000000003
+Accept: application/json
+
+### Удаленное место - 404
+GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000004
+Accept: application/json
+
+### Место только в приватной подборке - 404
+GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000005
+Accept: application/json
+
 ### Поиск по названию без учёта регистра
 GET {{host}}/api/v1/places?search=first
 Accept: application/json
@@ -16,10 +36,10 @@ Accept: application/json
 GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000002
 Accept: application/json
 
-### Несуществующее место — 404
+### Несуществующее место - 404
 GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000003
 Accept: application/json
 
-### Некорректный идентификатор — 400
+### Некорректный идентификатор - 400
 GET {{host}}/api/v1/places/hello
 Accept: application/json

@@ -11,6 +11,7 @@ public class PlaceCollection
     public Guid Id { get; }
     public Guid OwnerId { get; }
     public string Name { get; }
+    public bool IsPublic { get; private set; }
     public bool IsDeleted { get; private set; }
     public IReadOnlyList<Guid> PlaceIds { get; }
 
@@ -82,12 +83,21 @@ public class PlaceCollection
     }
 
     /// <summary>
-    /// Проверяет право владельца менять состав существующей подборки
+    /// Изменяет публичность подборки только от имени владельца
+    /// </summary>
+    public void ChangeVisibility(Guid actorId, bool isPublic)
+    {
+        EnsureCanChange(actorId);
+        IsPublic = isPublic;
+    }
+
+    /// <summary>
+    /// Проверяет право владельца изменять существующую подборку
     /// </summary>
     private void EnsureCanChange(Guid actorId)
     {
         if (actorId != OwnerId)
-            throw new UnauthorizedAccessException("Изменять состав подборки может только владелец");
+            throw new UnauthorizedAccessException("Изменять подборку может только владелец");
 
         if (IsDeleted)
             throw new InvalidOperationException("Удаленную подборку нельзя изменять");
