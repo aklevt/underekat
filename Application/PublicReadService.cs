@@ -99,8 +99,12 @@ public class PublicReadService
             Id = place.Id,
             Name = place.Name,
             Description = place.Description,
+            Address = place.Address,
             Latitude = place.Location.Latitude,
-            Longitude = place.Location.Longitude
+            Longitude = place.Location.Longitude,
+            Access = place.Access,
+            Guard = place.Guard,
+            Tags = place.Tags.ToArray()
         };
     }
 }

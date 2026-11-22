@@ -49,7 +49,7 @@ public class PublicReadServiceTests
     public void test_GetCollection_Deleted()
     {
         var ownerId = Guid.NewGuid();
-        var place = new Place(ownerId, "House", "", new Coordinates(56, 60));
+        var place = new Place(ownerId, "House", "", new Coordinates(56, 60), address: "Main street, 1");
         var collection = new PlaceCollection(ownerId, "Architecture");
         collection.AddPlace(ownerId, place.Id);
         collection.ChangeVisibility(ownerId, true);
@@ -59,6 +59,7 @@ public class PublicReadServiceTests
         Assert.That(service.GetCollections(), Has.Length.EqualTo(1));
         Assert.That(service.GetCollection(collection.Id), Is.Not.Null);
         Assert.That(service.GetPlace(place.Id), Is.Not.Null);
+        Assert.That(service.GetPlace(place.Id)!.Address, Is.EqualTo("Main street, 1"));
 
         collection.Delete(ownerId);
 

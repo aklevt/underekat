@@ -17,10 +17,12 @@ public class DemoPlaceReadSource : IPlaceReadSource
         var authorId = Guid.Parse("bb000000-0000-4000-8000-000000000001");
         var first = new Place(
             Guid.Parse("aa000000-0000-4000-8000-000000000001"),
-            authorId, "First place", "Desc of test place", new Coordinates(56.8389, 60.6057));
+            authorId, "First place", "Desc of test place", new Coordinates(56.8389, 60.6057),
+            address: "Адрес первого места в центре города");
         var second = new Place(
             Guid.Parse("aa000000-0000-4000-8000-000000000002"),
-            authorId, "Second place", "Desc of test place", new Coordinates(56.8400, 60.6100));
+            authorId, "Second place", "Desc of test place", new Coordinates(56.8400, 60.6100),
+            address: "Адрес второго места в центре города");
         var deleted = new Place(
             Guid.Parse("aa000000-0000-4000-8000-000000000004"),
             authorId, "Удаленное место", "Описание удаленного места", new Coordinates(56.83, 60.61));

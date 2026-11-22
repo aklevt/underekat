@@ -26,12 +26,13 @@ public class PlaceTests
     public void test_Update_ByAuthor()
     {
         var authorId = Guid.NewGuid();
-        var place = new Place(authorId, "Old name", "", new Coordinates(56, 60));
+        var place = new Place(authorId, "Old name", "", new Coordinates(56, 60), address: "Old address");
 
-        place.Update(authorId, "New name", "New description", new Coordinates(57, 61));
+        place.Update(authorId, "New name", "New description", new Coordinates(57, 61), "New address");
 
         Assert.That(place.Name, Is.EqualTo("New name"));
         Assert.That(place.Description, Is.EqualTo("New description"));
+        Assert.That(place.Address, Is.EqualTo("New address"));
         Assert.That(place.Location, Is.EqualTo(new Coordinates(57, 61)));
     }
 
@@ -42,7 +43,7 @@ public class PlaceTests
         var strangerId = Guid.NewGuid();
 
         Assert.Throws<UnauthorizedAccessException>(() =>
-            place.Update(strangerId, "New name", "", new Coordinates(57, 61)));
+            place.Update(strangerId, "New name", "", new Coordinates(57, 61), "New address"));
 
         Assert.That(place.Name, Is.EqualTo("House"));
     }
@@ -68,6 +69,6 @@ public class PlaceTests
 
         Assert.That(place.IsDeleted, Is.True);
         Assert.Throws<InvalidOperationException>(() =>
-            place.Update(authorId, "New name", "", new Coordinates(57, 61)));
+            place.Update(authorId, "New name", "", new Coordinates(57, 61), "New address"));
     }
 }

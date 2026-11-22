@@ -8,23 +8,23 @@ namespace UnderEkat.Api.Controllers;
 [Route("api/v1/collections")]
 public class CollectionController : ControllerBase
 {
-    private readonly PublicReadService queries;
+    private readonly PublicReadService readService;
 
-    public CollectionController(PublicReadService queries)
+    public CollectionController(PublicReadService readService)
     {
-        this.queries = queries;
+        this.readService = readService;
     }
 
     [HttpGet]
     public ActionResult<CollectionSummaryResponse[]> GetAll()
     {
-        return Ok(queries.GetCollections());
+        return Ok(readService.GetCollections());
     }
 
     [HttpGet("{id}", Name = nameof(GetCollection))]
     public ActionResult<CollectionResponse> GetCollection(Guid id)
     {
-        var collection = queries.GetCollection(id);
+        var collection = readService.GetCollection(id);
 
         if (collection == null)
             return NotFound();

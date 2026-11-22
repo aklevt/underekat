@@ -8,17 +8,17 @@ namespace UnderEkat.Api.Controllers;
 [Route("api/v1/places")]
 public class PlaceController : ControllerBase
 {
-    private readonly PublicReadService _readService;
+    private readonly PublicReadService readService;
 
     public PlaceController(PublicReadService readService)
     {
-        this._readService = readService;
+        this.readService = readService;
     }
 
     [HttpGet("{id}", Name = nameof(GetPlace))]
     public ActionResult<PlaceResponse> GetPlace(Guid id)
     {
-        var place = _readService.GetPlace(id);
+        var place = readService.GetPlace(id);
 
         if (place == null)
             return NotFound();
@@ -29,6 +29,6 @@ public class PlaceController : ControllerBase
     [HttpGet]
     public ActionResult<PlaceResponse[]> GetAll([FromQuery] string? search)
     {
-        return Ok(_readService.GetPlaces(search));
+        return Ok(readService.GetPlaces(search));
     }
 }

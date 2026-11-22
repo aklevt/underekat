@@ -43,7 +43,6 @@ public class PlaceCollection
 
     /// <summary>
     /// Добавляет ссылку от имени владельца, если ее еще нет в подборке
-    /// Существование и доступность места проверяются перед вызовом
     /// </summary>
     public void AddPlace(Guid actorId, Guid placeId)
     {
