@@ -6,14 +6,19 @@ namespace UnderEkat.Api.Domain.Entities;
 /// </summary>
 public class PlaceCollection
 {
-    private readonly List<Guid> placeIds = [];
+    private readonly List<CollectionPlace> placeLinks = [];
 
     public Guid Id { get; }
     public Guid OwnerId { get; }
     public string Name { get; }
     public bool IsPublic { get; private set; }
     public bool IsDeleted { get; private set; }
-    public IReadOnlyList<Guid> PlaceIds { get; }
+    public IReadOnlyList<CollectionPlace> PlaceLinks { get; }
+
+    /// <summary>
+    /// Возвращает id мест, входящих в подборку
+    /// </summary>
+    public IReadOnlyList<Guid> PlaceIds => placeLinks.Select(link => link.PlaceId).ToArray();
 
     public PlaceCollection(Guid ownerId, string name)
         : this(Guid.NewGuid(), ownerId, name) { }
@@ -38,7 +43,7 @@ public class PlaceCollection
         Id = id;
         OwnerId = ownerId;
         Name = name.Trim();
-        PlaceIds = placeIds.AsReadOnly();
+        PlaceLinks = placeLinks.AsReadOnly();
     }
 
     /// <summary>
@@ -51,8 +56,8 @@ public class PlaceCollection
         if (placeId == Guid.Empty)
             throw new ArgumentException("Не указан id места", nameof(placeId));
 
-        if (!placeIds.Contains(placeId))
-            placeIds.Add(placeId);
+        if (!placeLinks.Any(link => link.PlaceId == placeId))
+            placeLinks.Add(new CollectionPlace(Id, placeId));
     }
 
     /// <summary>
@@ -66,7 +71,7 @@ public class PlaceCollection
         if (placeId == Guid.Empty)
             throw new ArgumentException("Не указан id места", nameof(placeId));
 
-        placeIds.Remove(placeId);
+        placeLinks.RemoveAll(link => link.PlaceId == placeId);
     }
 
     /// <summary>

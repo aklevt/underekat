@@ -21,17 +21,42 @@ public class Place
     public IReadOnlyList<string> Tags { get; } = [];
     public bool IsDeleted { get; private set; }
 
-    public Place(Guid authorId, string name, string description, Coordinates location,
-        PlaceAccess access = PlaceAccess.Unknown, GuardStatus guard = GuardStatus.Unknown, string address = "")
-        : this(Guid.NewGuid(), authorId, name, description, location, access, guard, address)
+    /// <summary>
+    /// Конструктор для EF Core, используется при чтении места из БД
+    /// Его EF Core вызывает и заполняет свойства сохраненными значениями
+    /// </summary>
+    private Place()
     {
+        Name = null!;
+        Description = null!;
+        Address = null!;
+        Location = null!;
     }
+
+    public Place(
+        Guid authorId,
+        string name,
+        string description,
+        Coordinates location,
+        PlaceAccess access = PlaceAccess.Unknown,
+        GuardStatus guard = GuardStatus.Unknown,
+        string address = ""
+    )
+        : this(Guid.NewGuid(), authorId, name, description, location, access, guard, address) { }
 
     /// <summary>
     /// Создает объект места с заданным id
     /// </summary>
-    public Place(Guid id, Guid authorId, string name, string description, Coordinates location,
-        PlaceAccess access = PlaceAccess.Unknown, GuardStatus guard = GuardStatus.Unknown, string address = "")
+    public Place(
+        Guid id,
+        Guid authorId,
+        string name,
+        string description,
+        Coordinates location,
+        PlaceAccess access = PlaceAccess.Unknown,
+        GuardStatus guard = GuardStatus.Unknown,
+        string address = ""
+    )
     {
         if (id == Guid.Empty)
             throw new ArgumentException("Не указан id места", nameof(id));
@@ -61,7 +86,13 @@ public class Place
     /// Изменяет название, описание, адрес и координаты существующего места только от имени автора
     /// При ошибке проверки сохраняет прежние данные
     /// </summary>
-    public void Update(Guid actorId, string name, string description, Coordinates location, string address)
+    public void Update(
+        Guid actorId,
+        string name,
+        string description,
+        Coordinates location,
+        string address
+    )
     {
         if (actorId != AuthorId)
             throw new UnauthorizedAccessException("Изменять место может только автор");
@@ -89,19 +120,33 @@ public class Place
         IsDeleted = true;
     }
 
-    private static void ValidateDetails(string name, string description, Coordinates location, string address)
+    private static void ValidateDetails(
+        string name,
+        string description,
+        Coordinates location,
+        string address
+    )
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("Название места не может быть пустым", nameof(name));
 
         if (name.Trim().Length > 65)
-            throw new ArgumentException("Название должно содержать не более 65 символов", nameof(name));
+            throw new ArgumentException(
+                "Название должно содержать не более 65 символов",
+                nameof(name)
+            );
 
         if (description is null)
-            throw new ArgumentNullException(nameof(description), "Не указано описание места, допустима пустая строка");
+            throw new ArgumentNullException(
+                nameof(description),
+                "Не указано описание места, допустима пустая строка"
+            );
 
         if (description.Length > 1000)
-            throw new ArgumentException("Описание должно содержать не более 1000 символов", nameof(description));
+            throw new ArgumentException(
+                "Описание должно содержать не более 1000 символов",
+                nameof(description)
+            );
 
         if (location is null)
             throw new ArgumentNullException(nameof(location), "Не указаны координаты места");
