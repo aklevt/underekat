@@ -4,26 +4,26 @@ namespace UnderEkat.Api.Domain.Entities;
 /// Обычная подборка, составом которой управляет владелец
 /// Хранит ссылки на места по id, не управляя самими местами
 /// </summary>
-public class PlaceCollection
+public class Collection
 {
-    private readonly List<CollectionPlace> placeLinks = [];
+    private readonly List<CollectionPlaceLink> placeLinks = [];
 
     public Guid Id { get; }
     public Guid OwnerId { get; }
     public string Name { get; }
     public bool IsPublic { get; private set; }
     public bool IsDeleted { get; private set; }
-    public IReadOnlyList<CollectionPlace> PlaceLinks { get; }
+    public IReadOnlyList<CollectionPlaceLink> PlaceLinks { get; }
 
     /// <summary>
     /// Возвращает id мест, входящих в подборку
     /// </summary>
     public IReadOnlyList<Guid> PlaceIds => placeLinks.Select(link => link.PlaceId).ToArray();
 
-    public PlaceCollection(Guid ownerId, string name)
+    public Collection(Guid ownerId, string name)
         : this(Guid.NewGuid(), ownerId, name) { }
 
-    public PlaceCollection(Guid id, Guid ownerId, string name)
+    public Collection(Guid id, Guid ownerId, string name)
     {
         if (id == Guid.Empty)
             throw new ArgumentException("Не указан id подборки", nameof(id));
@@ -57,7 +57,7 @@ public class PlaceCollection
             throw new ArgumentException("Не указан id места", nameof(placeId));
 
         if (!placeLinks.Any(link => link.PlaceId == placeId))
-            placeLinks.Add(new CollectionPlace(Id, placeId));
+            placeLinks.Add(new CollectionPlaceLink(Id, placeId));
     }
 
     /// <summary>

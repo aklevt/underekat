@@ -4,27 +4,27 @@ using UnderEkat.Api.Domain.ValueObjects;
 
 namespace UnderEkat.Api.Tests;
 
-public class PlaceCollectionTests
+public class CollectionTests
 {
     [TestCase(null)]
     [TestCase("")]
     [TestCase("   ")]
     public void test_Create_EmptyName(string? name)
     {
-        Assert.Throws<ArgumentException>(() => new PlaceCollection(Guid.NewGuid(), name!));
+        Assert.Throws<ArgumentException>(() => new Collection(Guid.NewGuid(), name!));
     }
 
     [Test]
     public void test_Create_NoOwner()
     {
-        Assert.Throws<ArgumentException>(() => new PlaceCollection(Guid.Empty, "Architecture"));
+        Assert.Throws<ArgumentException>(() => new Collection(Guid.Empty, "Architecture"));
     }
 
     [Test]
     public void test_AddPlace_Twice()
     {
         var ownerId = Guid.NewGuid();
-        var collection = new PlaceCollection(ownerId, "Architecture");
+        var collection = new Collection(ownerId, "Architecture");
         var placeId = Guid.NewGuid();
 
         collection.AddPlace(ownerId, placeId);
@@ -37,7 +37,7 @@ public class PlaceCollectionTests
     public void test_Change_ByStranger()
     {
         var ownerId = Guid.NewGuid();
-        var collection = new PlaceCollection(ownerId, "Architecture");
+        var collection = new Collection(ownerId, "Architecture");
         var placeId = Guid.NewGuid();
         collection.AddPlace(ownerId, placeId);
         var strangerId = Guid.NewGuid();
@@ -53,8 +53,8 @@ public class PlaceCollectionTests
     {
         var ownerId = Guid.NewGuid();
         var place = new Place(Guid.NewGuid(), "House", "", new Coordinates(56, 60));
-        var first = new PlaceCollection(ownerId, "Architecture");
-        var second = new PlaceCollection(ownerId, "Walk");
+        var first = new Collection(ownerId, "Architecture");
+        var second = new Collection(ownerId, "Walk");
         first.AddPlace(ownerId, place.Id);
         second.AddPlace(ownerId, place.Id);
 
@@ -70,7 +70,7 @@ public class PlaceCollectionTests
     {
         var ownerId = Guid.NewGuid();
         var place = new Place(Guid.NewGuid(), "House", "", new Coordinates(56, 60));
-        var collection = new PlaceCollection(ownerId, "Architecture");
+        var collection = new Collection(ownerId, "Architecture");
         collection.AddPlace(ownerId, place.Id);
 
         collection.Delete(ownerId);

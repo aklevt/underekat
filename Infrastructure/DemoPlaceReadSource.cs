@@ -10,7 +10,7 @@ namespace UnderEkat.Api.Infrastructure;
 public class DemoPlaceReadSource : IPlaceReadSource
 {
     public IReadOnlyList<Place> Places { get; }
-    public IReadOnlyList<PlaceCollection> Collections { get; }
+    public IReadOnlyList<Collection> Collections { get; }
 
     public DemoPlaceReadSource()
     {
@@ -30,19 +30,19 @@ public class DemoPlaceReadSource : IPlaceReadSource
             Guid.Parse("aa000000-0000-4000-8000-000000000005"),
             authorId, "Приватное место", "Личная заметка", new Coordinates(56.84, 60.62));
 
-        var architecture = new PlaceCollection(
+        var architecture = new Collection(
             Guid.Parse("cc000000-0000-4000-8000-000000000001"), authorId, "Архитектура");
         architecture.AddPlace(authorId, first.Id);
         architecture.AddPlace(authorId, deleted.Id);
         architecture.ChangeVisibility(authorId, true);
 
-        var walk = new PlaceCollection(
+        var walk = new Collection(
             Guid.Parse("cc000000-0000-4000-8000-000000000002"), authorId, "Прогулка");
         walk.AddPlace(authorId, first.Id);
         walk.AddPlace(authorId, second.Id);
         walk.ChangeVisibility(authorId, true);
 
-        var personal = new PlaceCollection(
+        var personal = new Collection(
             Guid.Parse("cc000000-0000-4000-8000-000000000003"), authorId, "Личные заметки");
         personal.AddPlace(authorId, privatePlace.Id);
 

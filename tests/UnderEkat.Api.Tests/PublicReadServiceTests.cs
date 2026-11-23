@@ -12,8 +12,8 @@ public class PublicReadServiceTests
     {
         var ownerId = Guid.NewGuid();
         var place = new Place(ownerId, "House", "", new Coordinates(56, 60));
-        var first = new PlaceCollection(ownerId, "Architecture");
-        var second = new PlaceCollection(ownerId, "Walk");
+        var first = new Collection(ownerId, "Architecture");
+        var second = new Collection(ownerId, "Walk");
         first.AddPlace(ownerId, place.Id);
         second.AddPlace(ownerId, place.Id);
         first.ChangeVisibility(ownerId, true);
@@ -37,7 +37,7 @@ public class PublicReadServiceTests
     [Test]
     public void test_GetCollection_Private()
     {
-        var collection = new PlaceCollection(Guid.NewGuid(), "Personal");
+        var collection = new Collection(Guid.NewGuid(), "Personal");
         var source = new TestReadSource { Collections = [collection] };
         var service = new PublicReadService(source);
 
@@ -50,7 +50,7 @@ public class PublicReadServiceTests
     {
         var ownerId = Guid.NewGuid();
         var place = new Place(ownerId, "House", "", new Coordinates(56, 60), address: "Main street, 1");
-        var collection = new PlaceCollection(ownerId, "Architecture");
+        var collection = new Collection(ownerId, "Architecture");
         collection.AddPlace(ownerId, place.Id);
         collection.ChangeVisibility(ownerId, true);
         var source = new TestReadSource { Places = [place], Collections = [collection] };
@@ -74,7 +74,7 @@ public class PublicReadServiceTests
     {
         var authorId = Guid.NewGuid();
         var place = new Place(authorId, "House", "Description", new Coordinates(56, 60));
-        var collection = new PlaceCollection(authorId, "Architecture");
+        var collection = new Collection(authorId, "Architecture");
         collection.AddPlace(authorId, place.Id);
         collection.ChangeVisibility(authorId, true);
         var source = new TestReadSource { Places = [place], Collections = [collection] };
@@ -100,6 +100,6 @@ public class PublicReadServiceTests
     private class TestReadSource : IPlaceReadSource
     {
         public IReadOnlyList<Place> Places { get; set; } = [];
-        public IReadOnlyList<PlaceCollection> Collections { get; set; } = [];
+        public IReadOnlyList<Collection> Collections { get; set; } = [];
     }
 }

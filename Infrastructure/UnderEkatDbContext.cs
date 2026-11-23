@@ -10,7 +10,7 @@ namespace UnderEkat.Api.Infrastructure;
 public class UnderEkatDbContext : DbContext
 {
     public DbSet<Place> Places => Set<Place>();
-    public DbSet<PlaceCollection> Collections => Set<PlaceCollection>();
+    public DbSet<Collection> Collections => Set<Collection>();
 
     public UnderEkatDbContext(DbContextOptions<UnderEkatDbContext> options)
         : base(options)
@@ -55,13 +55,13 @@ public class UnderEkatDbContext : DbContext
     }
 
     /// <summary>
-    /// Описывает хранение PlaceCollection в collections, а списка PlaceLinks в collection_places
+    /// Описывает хранение Collection в collections, а списка PlaceLinks в collection_places
     /// Изменения связей сохраняются в БД при вызове SaveChanges
     /// Удаление связи из списка исключает место из подборки, но не удаляет само место
     /// </summary>
     private static void ConfigureCollections(ModelBuilder modelkuilder)
     {
-        var collection = modelBuilder.Entity<PlaceCollection>();
+        var collection = modelBuilder.Entity<Collection>();
 
         collection.ToTable("collections");
         collection.HasKey(c => c.Id);

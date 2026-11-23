@@ -8,5 +8,5 @@ namespace UnderEkat.Api.Application;
 public interface IPlaceReadSource
 {
     IReadOnlyList<Place> Places { get; }
-    IReadOnlyList<PlaceCollection> Collections { get; }
+    IReadOnlyList<Collection> Collections { get; }
 }

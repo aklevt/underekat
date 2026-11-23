@@ -17,7 +17,7 @@ public class UnderEkatDbContextTests
         using var db = new UnderEkatDbContext(options);
         var ownerId = Guid.NewGuid();
         var place = new Place(ownerId, "House", "", new Coordinates(56, 60));
-        var collection = new PlaceCollection(ownerId, "Architecture");
+        var collection = new Collection(ownerId, "Architecture");
         collection.AddPlace(ownerId, place.Id);
         var oldLink = collection.PlaceLinks.Single();
         db.Attach(place);

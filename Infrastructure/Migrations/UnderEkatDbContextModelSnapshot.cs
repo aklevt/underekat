@@ -71,7 +71,7 @@ namespace UnderEkat.Api.Infrastructure.Migrations
                     b.ToTable("places", (string)null);
                 });
 
-            modelBuilder.Entity("UnderEkat.Api.Domain.Entities.PlaceCollection", b =>
+            modelBuilder.Entity("UnderEkat.Api.Domain.Entities.Collection", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
@@ -127,9 +127,9 @@ namespace UnderEkat.Api.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("UnderEkat.Api.Domain.Entities.PlaceCollection", b =>
+            modelBuilder.Entity("UnderEkat.Api.Domain.Entities.Collection", b =>
                 {
-                    b.OwnsMany("UnderEkat.Api.Domain.Entities.CollectionPlace", "PlaceLinks", b1 =>
+                    b.OwnsMany("UnderEkat.Api.Domain.Entities.CollectionPlaceLink", "PlaceLinks", b1 =>
                         {
                             b1.Property<Guid>("CollectionId")
                                 .HasColumnType("uuid")
