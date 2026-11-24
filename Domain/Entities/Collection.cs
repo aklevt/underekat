@@ -2,7 +2,7 @@ namespace UnderEkat.Api.Domain.Entities;
 
 /// <summary>
 /// Обычная подборка, составом которой управляет владелец
-/// Хранит ссылки на места по id, не управляя самими местами
+/// Хранит ссылки на места по id, не управляет самими местами
 /// </summary>
 public class Collection
 {
@@ -62,7 +62,6 @@ public class Collection
 
     /// <summary>
     /// Убирает ссылку на место от имени владельца, сохраняя само место
-    /// Повторное удаление ссылки не меняет состав подборки
     /// </summary>
     public void RemovePlace(Guid actorId, Guid placeId)
     {
@@ -76,7 +75,6 @@ public class Collection
 
     /// <summary>
     /// Помечает подборку удаленной от имени владельца, сохраняя места
-    /// Повторное удаление владельцем не меняет состояние подборки
     /// </summary>
     public void Delete(Guid actorId)
     {

@@ -59,7 +59,7 @@ public class UnderEkatDbContext : DbContext
     /// Изменения связей сохраняются в БД при вызове SaveChanges
     /// Удаление связи из списка исключает место из подборки, но не удаляет само место
     /// </summary>
-    private static void ConfigureCollections(ModelBuilder modelkuilder)
+    private static void ConfigureCollections(ModelBuilder modelBuilder)
     {
         var collection = modelBuilder.Entity<Collection>();
 

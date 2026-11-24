@@ -7,6 +7,10 @@ namespace UnderEkat.Api.Application;
 /// </summary>
 public interface IPlaceReadSource
 {
-    IReadOnlyList<Place> Places { get; }
-    IReadOnlyList<Collection> Collections { get; }
+    /// <summary>
+    /// Возвращает все места или только места с заданными id
+    /// </summary>
+    Task<IReadOnlyList<Place>> GetPlacesAsync(IReadOnlyCollection<Guid>? ids = null);
+
+    Task<IReadOnlyList<Collection>> GetCollectionsAsync();
 }

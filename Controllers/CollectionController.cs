@@ -16,15 +16,15 @@ public class CollectionController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<CollectionSummaryResponse[]> GetAll()
+    public async Task<ActionResult<CollectionSummaryResponse[]>> GetAll()
     {
-        return Ok(readService.GetCollections());
+        return Ok(await readService.GetCollectionsAsync());
     }
 
     [HttpGet("{id}", Name = nameof(GetCollection))]
-    public ActionResult<CollectionResponse> GetCollection(Guid id)
+    public async Task<ActionResult<CollectionResponse>> GetCollection(Guid id)
     {
-        var collection = readService.GetCollection(id);
+        var collection = await readService.GetCollectionAsync(id);
 
         if (collection == null)
             return NotFound();

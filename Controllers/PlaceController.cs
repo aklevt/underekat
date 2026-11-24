@@ -16,9 +16,9 @@ public class PlaceController : ControllerBase
     }
 
     [HttpGet("{id}", Name = nameof(GetPlace))]
-    public ActionResult<PlaceResponse> GetPlace(Guid id)
+    public async Task<ActionResult<PlaceResponse>> GetPlace(Guid id)
     {
-        var place = readService.GetPlace(id);
+        var place = await readService.GetPlaceAsync(id);
 
         if (place == null)
             return NotFound();
@@ -27,8 +27,8 @@ public class PlaceController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<PlaceResponse[]> GetAll([FromQuery] string? search)
+    public async Task<ActionResult<PlaceResponse[]>> GetAll([FromQuery] string? search)
     {
-        return Ok(readService.GetPlaces(search));
+        return Ok(await readService.GetPlacesAsync(search));
     }
 }

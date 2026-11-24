@@ -1,45 +1,58 @@
 @host = http://localhost:5245
 
-### Все места
+### Все публичные места
 GET {{host}}/api/v1/places
+Accept: application/json
+
+### Поиск по названию (без учета регистра)
+GET {{host}}/api/v1/places?search=рязанова
+Accept: application/json
+
+### Карточка импортированного места
+GET {{host}}/api/v1/places/66fb92a5-0a32-4fdd-a5e5-61ad7229e92f
 Accept: application/json
 
 ### Публичные подборки
 GET {{host}}/api/v1/collections
 Accept: application/json
 
-### Подборка с живым местом и заглушкой удаленного
-GET {{host}}/api/v1/collections/cc000000-0000-4000-8000-000000000001
+### Подборка с местами
+GET {{host}}/api/v1/collections/fd53334f-634a-4cd9-b068-0970bf709057
 Accept: application/json
 
-### Приватная подборка - 404
-GET {{host}}/api/v1/collections/cc000000-0000-4000-8000-000000000003
-Accept: application/json
-
-### Удаленное место - 404
-GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000004
-Accept: application/json
-
-### Место только в приватной подборке - 404
-GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000005
-Accept: application/json
-
-### Поиск по названию без учёта регистра
-GET {{host}}/api/v1/places?search=first
-Accept: application/json
-
-### Первое место
-GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000001
-Accept: application/json
-
-### Второе место
-GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000002
-Accept: application/json
+// Примеры для прежних демоданных, в текущем импорте этих id нет
+// ### Подборка с живым местом и заглушкой удаленного
+// GET {{host}}/api/v1/collections/cc000000-0000-4000-8000-000000000001
+// Accept: application/json
+//
+// ### Приватная подборка - 404
+// GET {{host}}/api/v1/collections/cc000000-0000-4000-8000-000000000003
+// Accept: application/json
+//
+// ### Удаленное место - 404
+// GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000004
+// Accept: application/json
+//
+// ### Место только в приватной подборке - 404
+// GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000005
+// Accept: application/json
+//
+// ### Поиск по названию без учета регистра
+// GET {{host}}/api/v1/places?search=first
+// Accept: application/json
+//
+// ### Первое место
+// GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000001
+// Accept: application/json
+//
+// ### Второе место
+// GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000002
+// Accept: application/json
 
 ### Несуществующее место - 404
-GET {{host}}/api/v1/places/aa000000-0000-4000-8000-000000000003
+GET {{host}}/api/v1/places/00000000-0000-0000-0000-000000000000
 Accept: application/json
 
-### Некорректный идентификатор - 400
+### Некорректный id - 400
 GET {{host}}/api/v1/places/hello
 Accept: application/json
