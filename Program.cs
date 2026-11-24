@@ -13,6 +13,12 @@ builder.Services.AddControllers().AddJsonOptions(options =>
         new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseLower, allowIntegerValues: false));
 });
 builder.Services.AddOpenApi();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("LocalFrontend", policy =>
+        policy.WithOrigins("http://localhost:18080")
+            .WithMethods("GET"));
+});
 builder.Services.AddDbContext<UnderEkatDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("Postgres")
@@ -66,6 +72,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("LocalFrontend");
 
 app.UseAuthorization();
 
